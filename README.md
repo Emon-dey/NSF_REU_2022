@@ -23,6 +23,6 @@ https://docs.duckietown.org/daffy/opmanual_sky/out/index.html
 
 # Synchronizing Middleware 
 -Sample Github repos
-https://github.com/srikrishna3118/FlyNetSim
-https://github.com/srikrishna3118/CORNET
-https://github.com/alelab-upenn/ros-net-sim
+1. https://github.com/srikrishna3118/FlyNetSim
+2. https://github.com/srikrishna3118/CORNET
+3. https://github.com/alelab-upenn/ros-net-sim
