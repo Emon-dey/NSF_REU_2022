@@ -466,9 +466,9 @@ class NetworkCoordinator:
                 yield current_byte, bit_to_flip
 
     @staticmethod
-    def send_one_message(sock, data):
+    def send_one_message(sock, data, ip, port):
         length = len(data)
-        sock.sendall(struct.pack('!I', length) + data)
+        sock.sendall(struct.pack('!I', length) + data, (ip, port))
 
     @classmethod
     def recv_one_message(cls, sock):
