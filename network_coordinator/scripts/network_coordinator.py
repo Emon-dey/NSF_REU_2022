@@ -139,12 +139,12 @@ class NetworkCoordinator:
         if self.phy_use_uds:
             # Create a UDS socket
             server_address = self.config['phy_uds_server_address']
-            sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
         else:
             server_address = (self.config['phy_ip_server_address'], self.config['phy_ip_server_port'])
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
 
         try:
             if self.try_connecting(sock, server_address, "Error (physics coordinator protobuf client):") == -1:
@@ -197,11 +197,11 @@ class NetworkCoordinator:
         if self.net_use_uds:
             # Create a UDS socket
             server_address = self.config['netsim_uds_server_address']
-            sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
         else:
             server_address = (self.config['netsim_ip_server_address'], self.config['netsim_ip_server_port'])
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 
         try:
             if self.try_connecting(sock, server_address, "Error (network simulator protobuf client):") == -1:
@@ -399,12 +399,12 @@ class NetworkCoordinator:
     def _run_driver_process(self, num_interfaces):
         if self.net_use_uds:
             server_address = self.config['net_driver_uds_server_address']
-            netsim_driver_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            netsim_driver_socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
         else:
             server_address = (self.config['netsim_ip_server_address'], self.config['netsim_ip_ranging_port'])
-            netsim_driver_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            netsim_driver_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-            netsim_driver_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
+            netsim_driver_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            #netsim_driver_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            #netsim_driver_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
 
         try:
             if self.try_connecting(netsim_driver_socket, server_address, "Error (Network simulator driver client):") == -1:
@@ -416,7 +416,7 @@ class NetworkCoordinator:
             phy_socket_to_lock = {}
             for i in range(num_interfaces):
                 phy_socket_server_address = self.config['phy_driver_uds_server_address'] + str(i)
-                phy_driver_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+                phy_driver_socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
                 if self.try_connecting(phy_driver_socket, phy_socket_server_address, f"Error (Physics coordinator driver client {i}):") == -1:
                     continue
                 phy_driver_sockets.append(phy_driver_socket)
@@ -475,16 +475,18 @@ class NetworkCoordinator:
         lengthbuf = cls.recvall(sock, 4)
         if not lengthbuf: return None
         length, = struct.unpack('!I', lengthbuf)
-        return cls.recvall(sock, length)
+        value = cls.recvall(sock, length)
+        return value
 
     @staticmethod
     def recvall(sock, count):
         buf = bytearray()
         while count:
-            newbuf = sock.recv(count)
-            if not newbuf: return None
-            buf += newbuf
-            count -= len(newbuf)
+            print(count)
+            newbuf = sock.recvfrom(count)
+            if not newbuf: return None     
+            buf += newbuf[0]
+            count -= len(newbuf[0])
         return buf
 
     def run_network_coordinator(self):

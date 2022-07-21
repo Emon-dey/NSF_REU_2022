@@ -31,24 +31,24 @@ def run_protobuf_server(config):
             if os.path.exists(server_address):
                 raise
         # Create a UDS socket
-        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
     else:
         server_address = (config['phy_ip_server_address'], config['phy_ip_server_port'])
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
 
     sock.bind(server_address)
 
     try:
         prev_time=0
         print("Hit Ctrl-c to exit")
-        sock.listen(1)
-        connection, client_address = sock.accept()
+        #sock.listen(1)
+        #connection, client_address = sock.accept()
         while True:
             try:
                 num_nodes = len(config['mac_list'])
-                data = gzip.decompress(NetworkCoordinator.recv_one_message(connection))
+                data = gzip.decompress(NetworkCoordinator.recv_one_message(sock))
                 data = gzip.compress(gen_response(parse_request(data),num_nodes))
                 cur_time = time.time()
                 if cur_time - prev_time > 2:
@@ -59,7 +59,7 @@ def run_protobuf_server(config):
                     channel_data.ParseFromString(gzip.decompress(time_update.channel_data))
                     print(channel_data)
 
-                NetworkCoordinator.send_one_message(connection, data)
+                NetworkCoordinator.send_one_message(sock, data)
             except socket.error:
                 raise KeyboardInterrupt
 
@@ -122,11 +122,11 @@ def driver_process(config):
         addresses = [config['phy_driver_uds_server_address'] + str(i) for i, mac_i in enumerate(config['mac_list'])]
 
         def connect(id, addr):
-            sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
             sock.bind(addr)
             socket_list.append(sock)
-            sock.listen(1)
-            connection, _ = sock.accept()
+            #sock.listen(1)
+            #connection, _ = sock.accept()
             print(f"Connected to {addr}")
             if id == 1: time.sleep(0.5)
             mac_tuple = ("1a", "2a")
@@ -137,9 +137,9 @@ def driver_process(config):
             try:
                 while True:
                     print(f"Sent: " + (request))
-                    NetworkCoordinator.send_one_message(connection, request.encode("utf-8"))
-                    r, __, __ = select.select([connection, ], [], [], 0)
-                    if r: print(f"Received: " + (NetworkCoordinator.recv_one_message(connection)).decode("utf-8"))
+                    NetworkCoordinator.send_one_message(sock, request.encode("utf-8"))
+                    r, __, __ = select.select([sock, ], [], [], 0)
+                    if r: print(f"Received: " + (NetworkCoordinator.recv_one_message(sock)).decode("utf-8"))
                     time.sleep(5)
             except socket.error:
                 return

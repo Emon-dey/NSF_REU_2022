@@ -11,7 +11,7 @@ gazebo_models:
   - agent1
   - agent2
 
-print_debug: false
+print_debug: true
 
 net_use_uds: true
 phy_use_uds: true

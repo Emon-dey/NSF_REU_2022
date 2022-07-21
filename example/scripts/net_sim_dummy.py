@@ -30,24 +30,27 @@ def run_protobuf_server(config):
                 raise
 
         # Create a UDS socket
-        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
     else:
         server_address = (config['netsim_ip_server_address'], config['netsim_ip_server_port'])
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
 
     sock.bind(server_address)
 
     try:
         print("Hit Ctrl-c to exit")
-        sock.listen(1)
-        connection, client_address = sock.accept()
+        #sock.listen(1)
+        #connection, client_address = sock.accept()
         while True:
             try:
-                data = NetworkCoordinator.recv_one_message(connection)
+                data = NetworkCoordinator.recv_one_message(sock)
+
+                print(data)
+
                 data = gzip.compress(gen_response(parse_request(gzip.decompress(data)),config['ip_list']))
-                NetworkCoordinator.send_one_message(connection, data)
+                NetworkCoordinator.send_one_message(sock, data)
             except socket.error:
                 raise KeyboardInterrupt
 
@@ -120,22 +123,22 @@ def driver_process(config):
         except OSError:
             if os.path.exists(server_address): raise
 
-        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
     else:
         server_address = (config['netsim_ip_server_address'], config['netsim_ip_ranging_port'])
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
 
     try:
         sock.bind(server_address)
         sock.listen(1)
         driver_connection, _ = sock.accept()
         while True:
-            r, __, __ = select.select((driver_connection,), [], [], 2)
+            r, __, __ = select.select((sock,), [], [], 2)
             if not r: continue
             try:
-                driver_requests = NetworkCoordinator.recv_one_message(driver_connection)
+                driver_requests = NetworkCoordinator.recv_one_message(sock)
                 if not driver_requests: break
                 driver_requests = json.loads(gzip.decompress(driver_requests))
 
