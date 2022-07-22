@@ -34,7 +34,6 @@ def run_protobuf_server(config):
     else:
         server_address = (config['netsim_ip_server_address'], config['netsim_ip_server_port'])
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         #sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_QUICKACK, 1)
 
     sock.bind(server_address)
@@ -46,12 +45,11 @@ def run_protobuf_server(config):
         while True:
             try:
                 data = NetworkCoordinator.recv_one_message(sock)
-
-                print(data)
-
                 data = gzip.compress(gen_response(parse_request(gzip.decompress(data)),config['ip_list']))
+		
                 NetworkCoordinator.send_one_message(sock, data)
-            except socket.error:
+            except socket.error as e:
+                print(e)
                 raise KeyboardInterrupt
 
     except KeyboardInterrupt:
@@ -132,8 +130,8 @@ def driver_process(config):
 
     try:
         sock.bind(server_address)
-        sock.listen(1)
-        driver_connection, _ = sock.accept()
+        #sock.listen(1)
+        #driver_connection, _ = sock.accept()
         while True:
             r, __, __ = select.select((sock,), [], [], 2)
             if not r: continue

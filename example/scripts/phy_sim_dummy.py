@@ -58,8 +58,9 @@ def run_protobuf_server(config):
                     channel_data = cd.ChannelData()
                     channel_data.ParseFromString(gzip.decompress(time_update.channel_data))
                     print(channel_data)
-
+                
                 NetworkCoordinator.send_one_message(sock, data)
+
             except socket.error:
                 raise KeyboardInterrupt
 

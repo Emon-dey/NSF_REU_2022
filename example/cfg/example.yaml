@@ -13,8 +13,8 @@ gazebo_models:
 
 print_debug: true
 
-net_use_uds: true
-phy_use_uds: true
+net_use_uds: false
+phy_use_uds: false
 
 do_driver_transfer: false
 

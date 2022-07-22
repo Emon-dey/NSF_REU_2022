@@ -22,6 +22,7 @@ import yaml
 import protobuf_msgs.physics_update_pb2 as phyud
 import protobuf_msgs.network_update_pb2 as netud
 
+MAX_BUF_LEN = 1024
 
 class NetworkCoordinator:
 
@@ -466,28 +467,21 @@ class NetworkCoordinator:
                 yield current_byte, bit_to_flip
 
     @staticmethod
-    def send_one_message(sock, data, ip, port):
+    def send_one_message(sock, data):
         length = len(data)
-        sock.sendall(struct.pack('!I', length) + data, (ip, port))
+        # send buflen
+        sock.sendall(struct.pack('!I', length))
+        # send data
+        sock.sendall(data)
 
     @classmethod
     def recv_one_message(cls, sock):
-        lengthbuf = cls.recvall(sock, 4)
+        lengthbuf, address = sock.recvfrom(4)
         if not lengthbuf: return None
         length, = struct.unpack('!I', lengthbuf)
-        value = cls.recvall(sock, length)
-        return value
-
-    @staticmethod
-    def recvall(sock, count):
-        buf = bytearray()
-        while count:
-            print(count)
-            newbuf = sock.recvfrom(count)
-            if not newbuf: return None     
-            buf += newbuf[0]
-            count -= len(newbuf[0])
-        return buf
+        data, address = sock.recvfrom(length)
+        sock.connect(address)
+        return data
 
     def run_network_coordinator(self):
 
