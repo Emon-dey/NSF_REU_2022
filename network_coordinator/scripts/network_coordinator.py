@@ -22,7 +22,6 @@ import yaml
 import protobuf_msgs.physics_update_pb2 as phyud
 import protobuf_msgs.network_update_pb2 as netud
 
-MAX_BUF_LEN = 1024
 
 class NetworkCoordinator:
 
@@ -469,7 +468,7 @@ class NetworkCoordinator:
     @staticmethod
     def send_one_message(sock, data):
         length = len(data)
-        # send buflen
+        # send length of data buffer, 4 bytes
         sock.sendall(struct.pack('!I', length))
         # send data
         sock.sendall(data)
@@ -479,7 +478,7 @@ class NetworkCoordinator:
         # recieve the initial buffer and save the address to connect the socket
         lengthbuf, address = cls.recvall(sock, 4)
         if not lengthbuf: return None
-        # get the header size of the next buffe
+        # get the size of the next buffer
         length, = struct.unpack('!I', lengthbuf)
         data, address = cls.recvall(sock, length)
         # connect socket for sending data

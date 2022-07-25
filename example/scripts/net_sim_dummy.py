@@ -48,8 +48,7 @@ def run_protobuf_server(config):
                 data = gzip.compress(gen_response(parse_request(gzip.decompress(data)),config['ip_list']))
 		
                 NetworkCoordinator.send_one_message(sock, data)
-            except socket.error as e:
-                print(e)
+            except socket.error:
                 raise KeyboardInterrupt
 
     except KeyboardInterrupt:
