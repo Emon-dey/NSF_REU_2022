@@ -476,12 +476,25 @@ class NetworkCoordinator:
 
     @classmethod
     def recv_one_message(cls, sock):
-        lengthbuf, address = sock.recvfrom(4)
+        # recieve the initial buffer and save the address to connect the socket
+        lengthbuf, address = cls.recvall(sock, 4)
         if not lengthbuf: return None
+        # get the header size of the next buffe
         length, = struct.unpack('!I', lengthbuf)
-        data, address = sock.recvfrom(length)
+        data, address = cls.recvall(sock, length)
+        # connect socket for sending data
         sock.connect(address)
         return data
+
+    @staticmethod
+    def recvall(sock, count):
+        buf = bytearray()
+        while count:
+            newbuf, address = sock.recvfrom(count)
+            if not newbuf: return None
+            buf += newbuf
+            count -= len(newbuf)
+        return buf, address
 
     def run_network_coordinator(self):
 
