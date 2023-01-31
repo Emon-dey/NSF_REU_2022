@@ -10,7 +10,7 @@ Using the foxy branch, performances/performance_test_factory/examples then the s
 When running a system using two separate turtlebots in a ROS2 foxy system there are two changes that must be added before the performance package can be successfully installed. 
 
 ### Adding a Namespace to the turtlebots
-The easiest way to separate the nodes and topics is the use of namespaces. This is done by changing a total of 4 files in the turtlebot3 packages provided by robotis, starting with the last couple lines of *turtlebot3/turtlebot3_bringup/launch/robot.launch.py*
+The easiest way to separate the nodes and topics of two turtlebots is the use of namespaces. This is done by changing a total of 3 files in the turtlebot3 and LDS packages provided by robotis, starting with the node declaration found in *turtlebot3/turtlebot3_bringup/launch/robot.launch.py*
 ```python
 Node(
             package='turtlebot3_node',
@@ -27,7 +27,16 @@ tb3_XXX:                              // add this line at top of file, properly 
                         ...
             
 ```
-Similarly
+Similarly a namespace must be added to the provided lidar package to separate the scan topics completed by changing the node declaration in launch file *ld08_driver/launch/ld08.launch.py*
+```python
+Node(
+            package='ld08_driver',
+            namespace='tb3_XXX',    //add this line
+            executable='ld08_driver',
+            name='ld08_driver',
+            output='screen'),
+```
+After building the package and running the bringup, nodes will now abe separated by a namespace such as *tb3_XXX/scan, tb3_XXX/cmd_vel, tb3_XXX/...*
 
 ### Adding virtual memory before running colcon build
 
