@@ -7,7 +7,7 @@ https://github.com/irobot-ros/ros2-performance/tree/foxy
 Using the foxy branch, performances/performance_test_factory/examples then the subscriber_nodes_main and publisher_nodes_main code on two separate turtlebots
 
 ## Installing and running performance package on two Turtlebot3 Burger robots
-When running a system using two separate turtlebots in a ROS2 foxy system, the easiest way to separate the nodes and topics is the use of namespaces. This is done by changing a total of 4 files, starting with the turtlebot3_bringup/launch/robot.launch.py
+When running a system using two separate turtlebots in a ROS2 foxy system, the easiest way to separate the nodes and topics is the use of namespaces. This is done by changing a total of 4 files, starting with the *turtlebot3_bringup/launch/robot.launch.py*
 ```python
 Node(
             package='turtlebot3_node',
@@ -17,6 +17,7 @@ Node(
             arguments=['-i', usb_port],
             output='screen'),
 ```
+To complete the namespace the param file must be changed in /tur
 
 # Getting started with ROS
 - Start from the link given below to get an idea on ROS basics. This is a great compilation on all the necessary rersources on this field including papers, software, hardware, etc.
