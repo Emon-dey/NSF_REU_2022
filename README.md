@@ -56,7 +56,7 @@ CTRL + S, CTRL + X to save and exit
 sudo dpys-swapfile swapon
 ````
 ### Installing the Performance Package
-after successfully completing the steps to setup the two turtlebots, the performance package can be successfully built and installed. This may take several minutes however after adding the virtual memory it will complete successfully.
+after successfully completing the steps to setup the two turtlebots, the performance package can be successfully built and installed. This may take several minutes to complete however adding the virtual memory will prevent any freezing.
 
 # Getting started with ROS
 - Start from the link given below to get an idea on ROS basics. This is a great compilation on all the necessary rersources on this field including papers, software, hardware, etc.
