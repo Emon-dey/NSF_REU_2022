@@ -7,23 +7,29 @@ https://github.com/irobot-ros/ros2-performance/tree/foxy
 Using the foxy branch, performances/performance_test_factory/examples then the subscriber_nodes_main and publisher_nodes_main code on two separate turtlebots
 
 ## Installing and running performance package on two Turtlebot3 Burger robots
-When running a system using two separate turtlebots in a ROS2 foxy system, the easiest way to separate the nodes and topics is the use of namespaces. This is done by changing a total of 4 files, starting with the last couple lines of *turtlebot3_bringup/launch/robot.launch.py*
+When running a system using two separate turtlebots in a ROS2 foxy system there are two changes that must be added before the performance package can be successfully installed. 
+
+### Adding a Namespace to the turtlebots
+The easiest way to separate the nodes and topics is the use of namespaces. This is done by changing a total of 4 files in the turtlebot3 packages provided by robotis, starting with the last couple lines of *turtlebot3/turtlebot3_bringup/launch/robot.launch.py*
 ```python
 Node(
             package='turtlebot3_node',
-            namespace='tb3_0',          // add this line
+            namespace='tb3_XXX',          // add this line
             executable='turtlebot3_ros',
             parameters=[tb3_param_dir],
             arguments=['-i', usb_port],
             output='screen'),
 ```
-To complete of adding the namespace the param file must be changed in *turtlebot3_bringup/param/burger.yaml'
+To complete of adding the namespace the param file must be changed in *turtlebot3/turtlebot3_bringup/param/burger.yaml'
 ```python
-tb3_0:                              // add this line at top of file, properly indent following lines
+tb3_XXX:                              // add this line at top of file, properly indent following lines
             turtlebot3_node:
                         ...
             
 ```
+Similarly
+
+### Adding virtual memory before running colcon build
 
 # Getting started with ROS
 - Start from the link given below to get an idea on ROS basics. This is a great compilation on all the necessary rersources on this field including papers, software, hardware, etc.
