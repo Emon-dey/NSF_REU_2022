@@ -39,6 +39,24 @@ Node(
 After building the package and running the bringup, nodes will now abe separated by a namespace such as *tb3_XXX/scan, tb3_XXX/cmd_vel, tb3_XXX/...*
 
 ### Adding virtual memory before running colcon build
+Since the raspberry pi's found on the turtlebots don't have a high amount of RAM it's important to add virtual memory before building the performance package or the build process will freeze. This can be done by installing the dphys-swapfile package using the terminal.
+```
+sudo apt install dphys-swafile
+sudo dphys-swapfile swapoff
+sudo dphys-swafile swapon
+```
+Turning the package off and on usually will suffice however it may require a system reboot before going into affect, the virtual memory can be viewed by running *free -m* which should now display swap memory of around 2.4 GB. To increase or reduce the memory the following steps should be taken:
+````
+sudo dphys-swapfile swapoff
+sudo nano /etc/dphys-swapfile
+```
+Change the CONF_SWAPSIZE value
+CTRL + S, CTRL + X to save and exit
+```
+sudo dpys-swapfile swapon
+````
+### Installing the Performance Package
+after successfully completing the steps to setup the two turtlebots, the performance package can be successfully built and installed. This may take several minutes however after adding the virtual memory it should complete successfully.
 
 # Getting started with ROS
 - Start from the link given below to get an idea on ROS basics. This is a great compilation on all the necessary rersources on this field including papers, software, hardware, etc.
