@@ -36,7 +36,7 @@ Node(
             name='ld08_driver',
             output='screen'),
 ```
-After building the package and running the bringup, nodes will now be separated by a namespace such as *tb3_XXX/scan, tb3_XXX/cmd_vel, tb3_XXX/...*
+After building the package and running the bringup, nodes will now be separated by a namespace ex: *tb3_XXX/scan, tb3_XXX/cmd_vel, tb3_XXX/...*
 
 ### Adding virtual memory before running colcon build
 Since the raspberry pi's found on the turtlebots don't have a high amount of RAM it's important to add virtual memory before building the performance package or the build process will freeze. This can be done by installing the dphys-swapfile package using the terminal.
