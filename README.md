@@ -41,7 +41,7 @@ After building the package and running the bringup, nodes will now abe separated
 ### Adding virtual memory before running colcon build
 Since the raspberry pi's found on the turtlebots don't have a high amount of RAM it's important to add virtual memory before building the performance package or the build process will freeze. This can be done by installing the dphys-swapfile package using the terminal.
 ```
-sudo apt install dphys-swafile
+sudo apt install dphys-swapfile
 sudo dphys-swapfile swapoff
 sudo dphys-swafile swapon
 ```
