@@ -10,7 +10,7 @@ Using the foxy branch, performances/performance_test_factory/examples then the s
 When running a system using two separate turtlebots in a ROS2 foxy system there are two changes that must be added before the performance package can be successfully installed. 
 
 ### Adding a Namespace to the turtlebots
-The easiest way to separate the nodes and topics of two turtlebots is the use of namespaces. This is done by changing a total of 3 files in the turtlebot3 and LDS packages provided by robotis, starting with the node declaration found in *turtlebot3/turtlebot3_bringup/launch/robot.launch.py*, tb3_XXX represents any namespace that should be added to the node.
+The easiest way to separate the nodes and topics of two turtlebots is the use of namespaces. This is done by changing a total of 3 files in the turtlebot3 and LDS packages provided by robotis, starting with the node declaration found in *turtlebot3/turtlebot3_bringup/launch/robot.launch.py* (*tb3_XXX* represents any namespace that should be added to the node).
 ```python
 Node(
             package='turtlebot3_node',
