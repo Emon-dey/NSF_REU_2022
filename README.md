@@ -45,7 +45,7 @@ sudo apt install dphys-swafile
 sudo dphys-swapfile swapoff
 sudo dphys-swafile swapon
 ```
-Turning the package off and on usually will suffice however it may require a system reboot before going into affect, the virtual memory can be viewed by running *free -m* which should now display swap memory of around 2.4 GB. To increase or reduce the memory the following steps should be taken:
+Turning the package off and on usually will suffice however it may require a system reboot before going into affect, the virtual memory can be viewed by running *free -m* which will now display swap memory of around 2.4 GB. To increase or reduce the memory the following steps should be taken:
 ````
 sudo dphys-swapfile swapoff
 sudo nano /etc/dphys-swapfile
