@@ -7,7 +7,7 @@ https://github.com/irobot-ros/ros2-performance/tree/foxy
 Using the foxy branch, performances/performance_test_factory/examples then the subscriber_nodes_main and publisher_nodes_main code on two separate turtlebots
 
 ## Installing and running performance package on two Turtlebot3 Burger robots
-To run a system using two separate turtlebots, the easiest way to separate the nodes and topics is the use of namespaces. There is a provided file showing the changes that were 
+When running a system using two separate turtlebots in a ROS2 foxy system, the easiest way to separate the nodes and topics is the use of namespaces. There is a provided file which shows the changes to the provided Robotis turtlebot3 package found here 
 
 # Getting started with ROS
 - Start from the link given below to get an idea on ROS basics. This is a great compilation on all the necessary rersources on this field including papers, software, hardware, etc.
