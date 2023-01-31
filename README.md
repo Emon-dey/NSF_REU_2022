@@ -19,7 +19,7 @@ Node(
 ```
 To complete of adding the namespace the param file must be changed in *turtlebot3_bringup/param/burger.yaml'
 ```python
-tb3_0:                              // add this line at top of file
+tb3_0:                              // add this line at top of file, properly indent following lines
             turtlebot3_node:
                         ...
             
