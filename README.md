@@ -9,12 +9,12 @@ Using the foxy branch, performances/performance_test_factory/examples then the s
 ## Installing GUI for the turtlebot3
 
 After running the following commands the turtlebot3 should now be equipped with a GUI that makes ease of use much easier
-'''
+'''bash
 sudo apt-get install ubuntu-desktop-minimal
 sudo reboot
 '''
 Since the network manager before was netplan, in order to use NetworkManager the netplan config file found in */etc/netplan/50-cloud-init.yaml* has to be modified using the following steps in terminal:
-'''
+'''bash
 sudo nano /etc/netplan/50-cloud-init.yaml
 # Convert the file to look like this
 '''
