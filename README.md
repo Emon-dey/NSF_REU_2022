@@ -22,6 +22,7 @@ network:
             version: 2
             renderer: NetworkManager
 ```
+# CTRL+S, CTRL+X to save and quit
 sudo netplan apply
 sudo reboot
 ````
