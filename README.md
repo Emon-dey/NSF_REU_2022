@@ -6,6 +6,27 @@ https://github.com/irobot-ros/ros2-performance/tree/foxy
 
 Using the foxy branch, performances/performance_test_factory/examples then the subscriber_nodes_main and publisher_nodes_main code on two separate turtlebots
 
+## Installing GUI for the turtlebot3
+
+After running the following commands the turtlebot3 should now be equipped with a GUI that makes ease of use much easier
+'''
+sudo apt-get install ubuntu-desktop-minimal
+sudo reboot
+'''
+Since the network manager before was netplan, in order to use NetworkManager the netplan config file found in */etc/netplan/50-cloud-init.yaml* has to be modified using the following steps in terminal:
+'''
+sudo nano /etc/netplan/50-cloud-init.yaml
+# Convert the file to look like this
+'''
+network:
+            version: 2
+            renderer: NetworkManager
+'''
+sudo netplan apply
+sudo reboot
+'''
+Now the network can be managed using the drop down menu at the top right of the screen
+
 ## Installing and running performance package on two Turtlebot3 Burger robots
 When running a system using two separate turtlebots in a ROS2 foxy system there are two changes that must be added before the performance package can be successfully installed. 
 
