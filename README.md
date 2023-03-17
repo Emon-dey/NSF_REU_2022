@@ -1,6 +1,12 @@
 # RobSenCom
 This repository will include the necessary resources for RobSenCom project. You can create issue on any of your questions regarding the materials, installation problems.
 
+# Hardware
+- Duckiedrone
+https://docs.duckietown.org/daffy/opmanual_sky/out/index.html
+- Turtlebot3 Burger
+https://www.robotis.us/turtlebot-3-burger-us/
+
 # Package for Testing Performance of Ros2 system
 https://github.com/irobot-ros/ros2-performance/tree/foxy
 
@@ -79,9 +85,3 @@ sudo dpys-swapfile swapon
 ````
 ### Installing the Performance Package
 After successfully completing the steps to setup the two turtlebots, the performance package can be successfully built and installed. This may take several minutes to complete however adding the virtual memory will prevent any freezing.
-
-# Hardware
-- Duckiedrone
-https://docs.duckietown.org/daffy/opmanual_sky/out/index.html
-- Turtlebot3 Burger
-https://www.robotis.us/turtlebot-3-burger-us/
