@@ -1,11 +1,16 @@
 # RobSenCom
 This repository will include the necessary resources for RobSenCom project. You can create issue on any of your questions regarding the materials, installation problems.
 
-# Hardware
-- Duckiedrone
-https://docs.duckietown.org/daffy/opmanual_sky/out/index.html
-- Turtlebot3 Burger
-https://www.robotis.us/turtlebot-3-burger-us/
+# Preliminary Experimentation Files
+The /preliminary_tests repository contains two files, one named *sender.bash* and another named *receiver.bash* these two files were run on separate robotic agents to generate packet loss results in varying architectures. The only dependencies for the experiment are *TCPDUMP* *netcat* and a robot agent with ROS installed and a valid topic currently running. The topic to be subscribed to and duration for which the sender will record the topic information can be modified in the constants at the top of the *sender.bash* file, similarly IP addresses of robotic agents in experiment have to be specified in the provided files.
+To run the experiment the following steps should be followed
+```python
+# first initiate receiver for listenting
+./receiver.bash
+# next initiate sender to send a file containing topic data given
+./sender.bash
+# record results from opened terminals and rerun experiment to generate an average packet loss
+```
 
 # Package for Testing Performance of Ros2 system
 https://github.com/irobot-ros/ros2-performance/tree/foxy
@@ -85,3 +90,9 @@ sudo dpys-swapfile swapon
 ````
 ### Installing the Performance Package
 After successfully completing the steps to setup the two turtlebots, the performance package can be successfully built and installed. This may take several minutes to complete however adding the virtual memory will prevent any freezing.
+
+# Hardware
+- Duckiedrone
+https://docs.duckietown.org/daffy/opmanual_sky/out/index.html
+- Turtlebot3 Burger
+https://www.robotis.us/turtlebot-3-burger-us/
