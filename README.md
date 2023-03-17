@@ -4,9 +4,9 @@ This repository will include the necessary resources for RobSenCom project. You 
 # Preliminary Experimentation Files
 The /preliminary_tests repository contains two files, one named *sender.bash* and another named *receiver.bash* these two files were run on separate robotic agents to generate packet loss results in varying architectures. The only dependencies for the experiment are 
 ```
--TCPDUMP
--netcat
--a robot agent with ROS installed and a valid topic currently running. 
+- TCPDUMP
+- netcat
+- a robot agent with ROS installed and a valid topic currently running. 
 ```
 The topic to be subscribed to and duration for which the sender will record the topic information can be modified in the constants at the top of the *sender.bash* file, similarly IP addresses of robotic agents in experiment have to be specified in the provided files.
 To run the experiment the following steps should be followed
