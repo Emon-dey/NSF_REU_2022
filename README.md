@@ -21,9 +21,9 @@ Comparison of TCP and UDP is based on packet loss probability trends that vary w
 ![Preliminary Results](preliminary_results-1.png)
 
 # Package for Testing Performance of Ros2 system
+The following github repository contains a Ros2 performance evaluation package developed by irobot that provides a framework for performance testing of a ROS2 system, however the Ros2 topics used during testing are not useful ie. randomly generated data, the framework is a worthy endeavor for future modifications to evaluate network performance of a Ros2 architecture.
 https://github.com/irobot-ros/ros2-performance/tree/foxy
-
-Using the foxy branch, performances/performance_test_factory/examples then the subscriber_nodes_main and publisher_nodes_main code on two separate turtlebots
+The following subsections describe steps used for installation of the package to be compatible on turtlebot3 burger robotic agents, the installation process uses Ros2 foxy as that is currently the most recent supported Ros2 version for turtlebt3 burger robot agents
 
 ## Installing GUI for the turtlebot3
 
