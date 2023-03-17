@@ -2,7 +2,7 @@
 This repository will include the necessary resources for RobSenCom project. You can create issue on any of your questions regarding the materials, installation problems.
 
 # Preliminary Experimentation Files
-The /preliminary_tests repository contains two files, one named *sender.bash* and another named *receiver.bash* these two files were run on separate robotic agents to generate packet loss results in varying architectures. The only dependencies for the experiment are 
+The /preliminary_tests_system repository contains two files, one named *sender.bash* and another named *receiver.bash* these two files were run on separate robotic agents to generate packet loss results in varying architectures. The only dependencies for the experiment are 
 ```
 - tcpdump
 - netcat
