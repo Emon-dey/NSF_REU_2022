@@ -11,7 +11,7 @@ The /preliminary_tests repository contains two files, one named *sender.bash* an
 The topic to be subscribed to and duration for which the sender will record the topic information can be modified in the constants at the top of the *sender.bash* file, similarly IP addresses of robotic agents in experiment have to be specified in the provided files.
 To run the experiment the following steps should be followed
 ```python
-# first initiate receiver for listenting
+# first initiate receiver for listening
 ./receiver.bash
 # next initiate sender to send a file containing topic data given
 ./sender.bash
