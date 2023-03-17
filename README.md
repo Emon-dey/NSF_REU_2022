@@ -17,7 +17,7 @@ To run the experiment the following steps should be followed
 ./sender.bash
 # record results from opened terminals and rerun experiment to generate an average packet loss
 ```
-![SampleResults](preliminary_results.pdf)
+xfun::embed_file(preliminary_results.pdf)
 
 # Package for Testing Performance of Ros2 system
 https://github.com/irobot-ros/ros2-performance/tree/foxy
