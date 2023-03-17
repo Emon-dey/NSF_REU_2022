@@ -17,6 +17,7 @@ To run the experiment the following steps should be followed
 ./sender.bash
 # record results from opened terminals and rerun experiment to generate an average packet loss
 ```
+Comparison of TCP and UDP is based on packet loss probability trends that vary with agent distance in a multi-agent environment. This system uses a master-based (ROS1) architecture generated using the code described above.
 ![Preliminary Results](preliminary_results-1.png)
 
 # Package for Testing Performance of Ros2 system
