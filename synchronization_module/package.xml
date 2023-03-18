@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>synchronization_module</name>
+  <version>0.0.0</version>
+  <maintainer email="edey1@umbc.edu">Emon Dey</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>colcon</buildtool_depend>
+  <depend>network_module</depend>
+
+</package>

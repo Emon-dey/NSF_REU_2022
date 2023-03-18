@@ -1,0 +1,36 @@
+ip_list:
+  - ip1
+  - ip2
+  - ip3
+
+qos:
+  - 1
+  - 2
+  - 3
+
+
+gazebo_models:
+  - agent1
+  - agent2
+  - agent3
+
+
+net_use_uds: true
+phy_use_uds: true
+
+do_driver_transfer: false
+
+netsim_uds_server_address: '/tmp/net_server_socket'
+
+netsim_ip_server_address: 'localhost'
+netsim_ip_server_port: 10000
+netsim_ip_ranging_port: 10005
+
+phy_uds_server_address: '/tmp/phy_server_socket'
+
+phy_ip_server_address: 'localhost'
+phy_ip_server_port: 10001
+
+phy_driver_uds_server_address: '/tmp/phy_driver_socket'
+net_driver_uds_server_address: '/tmp/net_driver_socket'
+

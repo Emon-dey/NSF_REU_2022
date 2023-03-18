@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>physics_module</name>
+  <version>0.0.0</version>
+  <maintainer email="edey1@umbc.edu">Emon Dey</maintainer>
+  
+  <license>TODO</license>
+
+  <buildtool_depend>colcon</buildtool_depend>
+
+  <depend>gazebo_ros</depend>
+  <depend>gazebo</depend>
+  <depend>roscpp</depend>
+
+
+</package>

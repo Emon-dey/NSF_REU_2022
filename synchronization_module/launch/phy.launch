@@ -1,0 +1,9 @@
+<launch>
+
+  <node pkg="physics_module"
+        type="gazebo.py"
+        name="physics_module"
+        output="screen"
+        args="$(find synchronization_module)/config/parameter.yaml"/>
+
+</launch>

@@ -1,0 +1,12 @@
+<launch>
+
+  <node pkg="network_module"
+        type="qos.cpp"
+	type="wifi.cpp"
+	type="coordinator.cpp"
+        name="network_module"
+        launch-prefix="sudo -S"
+        output="screen"
+        args="$(find synchronization_module)/config/parameter.yaml"/>
+  
+</launch>

@@ -1,0 +1,23 @@
+<launch>
+
+  <node pkg="network_module"
+        type="qos.cpp"
+	type="wifi.cpp"
+	type="coordinator.cpp"
+        name="network_module"
+        output="screen"
+        args="$(find synchronization_module)/config/parameter.yaml"/>
+
+  <node pkg="synchronization_module"
+        type="net.cpp"
+        name="network"
+        output="screen"
+        args="$(find synchronization_module)/config/parameter.yaml"/>
+
+  <node pkg="synchronization_module"
+        type="phy.cpp"
+        name="physics"
+        output="screen"
+        args="$(find synchronization_module)/config/parameter.yaml"/>
+
+</launch>

@@ -1,6 +1,37 @@
 # RobSenCom
 This repository will include the necessary resources for RobSenCom project. You can create issue on any of your questions regarding the materials, installation problems.
 
+# Simulation Setup
+Prerequisities:
+```
+rosdep install --from-paths ros2-linux/share --ignore-src --rosdistro $CHOOSE_ROS_DISTRO -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 osrf_testing_tools_cpp poco_vendor rmw_connext_cpp rosidl_typesupport_connext_c rosidl_typesupport_connext_cpp rti-connext-dds-5.3.1 tinyxml_vendor tinyxml2_vendor urdfdom urdfdom_headers"
+sudo apt install -y libpython3-dev
+```
+Clone the github repository to the /src folder of the ros2_ws and follow the listed commands below to setup the enviornment:
+```
+cd ~/ros2_ws
+. ~/ros2_ws/install/local_setup.bash
+rosdep install -i --from-paths . -y
+colcon build
+```
+1. Install <a href="https://www.nsnam.org/wiki/Installation">NS-3</a>
+2. Install <a href="http://classic.gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros">gazebo_ros_pkgs for ROS2</a> 
+3. Modify the configuration file within /synchronization_module/config with the ips of the agents and choice of ROS2 QoS policy.
+4. First, launch the network simulator by executing the following command:
+```
+ros2 run synchronization_module net 
+```
+5. The network module will be put on hold until the rest of the components are running. Next, in another terminal, launch the physics module by executing the following command:
+```
+ros2 run synchronization_module phy 
+```
+The physics module generates random positions for the agents and the network modules controls the packets and delays them for 300ms.
+6. Again, this component will hold until the rest of the simulation is launched. Finally, launch the coordinator file to start the synchronization process by executing the command:
+```
+ros2 run network_module coordinator
+```
+We sincerely acknowledge the <a href="https://arxiv.org/abs/2101.10113">ROS-NetSim</a> paper for valuable direction to implement this work.
+
 # Preliminary Experimentation Files
 The /preliminary_tests_system repository contains two files, one named *sender.bash* and another named *receiver.bash* these two files were run on separate robotic agents to generate packet loss results in varying architectures. The only dependencies for the experiment are 
 ```
