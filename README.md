@@ -26,6 +26,7 @@ ros2 run synchronization_module net
 ros2 run synchronization_module phy 
 ```
 The physics module generates random positions for the agents and the network modules controls the packets and delays them for 300ms.
+
 6. Again, this component will hold until the rest of the simulation is launched. Finally, launch the coordinator file to start the synchronization process by executing the command:
 ```
 ros2 run network_module coordinator
